@@ -3,9 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "scripts": {
+ "scripts": {
     "dev": "tsx server.ts",
-    "build": "vite build && tsc server.ts --outDir dist --module esnext --target esnext --moduleResolution node --allowJs --esModuleInterop",
+    "build": "vite build && tsc server.ts --outDir dist --module esnext --target esnext --moduleResolution bundler --allowJs --esModuleInterop",
     "start": "node dist/server.js",
     "lint": "tsc --noEmit"
   },
