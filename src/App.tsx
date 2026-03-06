@@ -59,21 +59,20 @@ const Login = ({ onLogin }: { onLogin: (user: User) => void }) => {
     e.preventDefault();
     setError('');
     setLoading(true);
-    try {
-      const res = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
-      if (res.ok) {
-        const user = await res.json();
-        onLogin(user);
-      } else {
-        setError('Invalid username or password');
-      }
-    } catch (err) {
-      setError('Connection error');
-    } finally {
+    
+    // Simulate a network delay
+    await new Promise(resolve => setTimeout(resolve, 800));
+
+    // Hardcoded credentials for AnuvartiTrack
+    if (username === 'admin' && password === 'password') {
+      const user: User = { 
+        id: 1, 
+        username: 'admin', 
+        role: 'admin' 
+      };
+      onLogin(user);
+    } else {
+      setError('Invalid username or password');
       setLoading(false);
     }
   };
@@ -89,7 +88,7 @@ const Login = ({ onLogin }: { onLogin: (user: User) => void }) => {
           <div className="w-16 h-16 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Shield size={32} />
           </div>
-          <h1 className="text-2xl font-bold text-white">InsureTrack Login</h1>
+          <h1 className="text-2xl font-bold text-white">AnuvartiTrack Login</h1>
           <p className="text-zinc-500 mt-2">Enter your credentials to continue</p>
         </div>
 
@@ -350,7 +349,7 @@ const Sidebar = ({ activeTab, setActiveTab, onNewCustomer, user, onLogout }: { a
       <div className="p-6 border-bottom border-zinc-800">
         <h1 className="text-xl font-bold text-white flex items-center gap-2">
           <CheckCircle2 className="text-emerald-500" />
-          InsureTrack
+          AnuvartiTrack
         </h1>
         <div className="mt-2 flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -1515,7 +1514,7 @@ const BusWorkingFollowUpModal = ({ row, onClose, onSave }: { row: any, onClose: 
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(() => {
-    const saved = localStorage.getItem('insuretrack_user');
+    const saved = localStorage.getItem('iAnuvartiTrack_user');
     return saved ? JSON.parse(saved) : null;
   });
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -1590,7 +1589,7 @@ export default function App() {
 
   const handleLogin = (user: User) => {
     setCurrentUser(user);
-    localStorage.setItem('insuretrack_user', JSON.stringify(user));
+    localStorage.setItem('AnuvartiTrack_user', JSON.stringify(user));
     // Default tab for non-admins should be something they can see
     if (user.role === 'user') {
       setActiveTab('buckets');
@@ -1612,7 +1611,7 @@ export default function App() {
       }
     }
     setCurrentUser(null);
-    localStorage.removeItem('insuretrack_user');
+    localStorage.removeItem('AnuvartiTrack_user');
   };
 
   const handleReset = async () => {
