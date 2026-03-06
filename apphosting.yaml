@@ -1,0 +1,9 @@
+runtime: nodejs22
+runConfig:
+  concurrency: 80
+  cpu: 1
+  memoryMiB: 512
+scripts:
+  buildCommand: npm run build
+  # This line prevents the "failed to listen on PORT" error
+  runCommand: npx serve -s dist -l $PORT
