@@ -5,5 +5,4 @@ runConfig:
   memoryMiB: 512
 scripts:
   buildCommand: npm run build
-  # This line prevents the "failed to listen on PORT" error
-  runCommand: npx serve -s dist -l $PORT
+  runCommand: npx serve -l 8080 dist
